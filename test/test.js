@@ -9,7 +9,7 @@ function _targets(topcmd) {
   return topcmd.getTargets().map(function(target) {
     return target.relPath;
   });
-};
+}
 
 test("test command targets", function(t) {
   var topcmd = createTopCommander({
@@ -63,9 +63,19 @@ test("misc features", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     runOptions: {
-      command: "lint"
+      command: "lint",
+      restArgv: "--check"
     }
   });
-  t.deepEqual(_targets(topcmd), ["sub-a", "sub-z"]);
+
+  t.deepEqual(_targets(topcmd), ["sub-a", "sub-b"]);
+
+  t.equal(topcmd.buildCommandString(topcmd.getTargets()[0]), topcmd.npmName + " run lint --check");
+
+  t.deepEqual(topcmd.getShellOptions(topcmd.getTargets()[0]), {
+    echoCommand: false,
+    cwd: npath.join(__dirname, "fixture/basic/sub-a")
+  });
+
   t.end();
 });
