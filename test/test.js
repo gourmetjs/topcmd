@@ -79,3 +79,16 @@ test("misc features", function(t) {
 
   t.end();
 });
+
+test("handling internal commands", function(t) {
+  var topcmd = createTopCommander({
+    rootPath: npath.join(__dirname, "fixture/basic"),
+    runOptions: {
+      command: "install"
+    }
+  });
+  // "run" should be dropped if there is no item defined in "scripts",
+  // assuming it as internal commands
+  t.equal(topcmd.buildCommandString(topcmd.root), topcmd.npmName + " install");
+  t.end();
+});
