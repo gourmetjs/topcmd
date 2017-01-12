@@ -1,0 +1,21 @@
+{
+  "name": "topcmd",
+  "version": "1.0.0",
+  "bin": "bin/topcmd.js",
+  "main": "lib/createTopCommander.js",
+  "scripts": {
+    "lint": "eslint bin lib test",
+    "test": "tape test/test.js",
+    "debug": "node --inspect --debug-brk node_modules/tape/bin/tape test/test.js"
+  },
+  "dependencies": {
+    "config-merge": "^0.1.10",
+    "minimist": "^1.2.0",
+    "promise-box": "^0.1.3",
+    "pshell": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "tape": "^4.6.3"
+  }
+}

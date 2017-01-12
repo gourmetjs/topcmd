@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "echo build",
+    "lint": "eslint **/*.js",
+    "purge": "rimraf _build",
+    "test": "topcmd --self build && tape test/test.js"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "rimraf": "*",
+    "tape": "*",
+    "topcmd": "*"
+  }
+}

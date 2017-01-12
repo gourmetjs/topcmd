@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "linkdeps --link && topcmd config",
+    "deps": "linkdeps",
+    "lint": "topcmd lint",
+    "test": "topcmd test",
+    "build": "topcmd build",
+    "watch": "topcmd watch --parallel --ignore",
+    "purge": "topcmd purge",
+    "cmd": "topcmd"
+  },
+  "topcmd": {
+    "targets": [
+      "./sub-a",
+      "@linkdeps.local"
+    ]
+  },
+  "linkdeps": {
+    "own": {
+      "devDependencies": {
+        "linkdeps": "^1.0.0",
+        "topcmd": "^1.0.0"
+      }
+    },
+    "local": {
+      "devDependencies": {
+        "./sub-b": "*",
+        "./sub-c": "*"
+      }
+    }
+  }
+}

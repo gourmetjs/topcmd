@@ -1,0 +1,20 @@
+{
+  "name": "sub-c",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "config": "topcmd --self install",
+    "test": "tape test/test.js"
+  },
+  "dependencies": {
+    "jquery": "^1.0.0"
+  },
+  "linkdeps": {
+    "own": {
+      "devDependencies": {
+        "eslint": "*",
+        "tape": "*"
+      }
+    }
+  }
+}
