@@ -1,7 +1,7 @@
 {
   "name": "topcmd",
   "description": "Centrally runs NPM commands on sub-projects",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "repository": "https://github.com/gourmetjs/linkdeps",
   "bin": "bin/topcmd.js",
