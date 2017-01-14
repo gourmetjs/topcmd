@@ -5,7 +5,7 @@
 var createTopCommander = require("..");
 
 (function main() {
-  var topcmd = createTopCommander({parseArgv: true});
+  var topcmd = createTopCommander();
   var argv = topcmd.argv;
 
   if (argv.version) {
@@ -13,7 +13,7 @@ var createTopCommander = require("..");
     return;
   }
 
-  if (argv.help || !topcmd.runOptions.command) {
+  if (argv.help || !topcmd.command) {
     console.log([
       "Usage: topcmd [options] <command> [targets...]",
       "",
