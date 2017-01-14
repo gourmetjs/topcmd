@@ -5,7 +5,7 @@
 var createTopCommander = require("..");
 
 (function main() {
-  var topcmd = createTopCommander();
+  var topcmd = createTopCommander({parseArgv: true});
   var argv = topcmd.argv;
 
   if (argv.version) {
@@ -19,7 +19,7 @@ var createTopCommander = require("..");
       "",
       "Options:",
       "  --version   print the version number",
-      "  --help      print this help message",
+      "  -h, --help  print this help message",
       "  --series    runs the command at targets in series (default)",
       "  --parallel  runs the NPM command at targets in parallel",
       "              * --parallel=10 limits maximum concurrency to 10",

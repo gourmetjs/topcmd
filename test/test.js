@@ -14,9 +14,7 @@ function _targets(topcmd) {
 test("test command targets", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "test"
-    }
+    command: "test"
   });
   t.deepEqual(_targets(topcmd), ["sub-a", "sub-b", "sub-c"]);
   t.end();
@@ -25,9 +23,7 @@ test("test command targets", function(t) {
 test("build command targets", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "build"
-    }
+    command: "build"
   });
   t.deepEqual(_targets(topcmd), ["sub-a"]);
   t.end();
@@ -36,9 +32,7 @@ test("build command targets", function(t) {
 test("unknown command targets", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "unknown"
-    }
+    command: "unknown"
   });
   t.deepEqual(_targets(topcmd), []);
   t.end();
@@ -47,13 +41,11 @@ test("unknown command targets", function(t) {
 test("custom command targets", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "custom",
-      targets: [
-        "sub-a",
-        "sub-z"
-      ]
-    }
+    command: "custom",
+    filter: [
+      "sub-a",
+      "sub-z"
+    ]
   });
   t.deepEqual(_targets(topcmd), ["sub-a", "sub-z"]);
   t.end();
@@ -62,10 +54,8 @@ test("custom command targets", function(t) {
 test("misc features", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "lint",
-      restArgv: "--check"
-    }
+    command: "lint",
+    restArgv: "--check"
   });
 
   t.deepEqual(_targets(topcmd), ["sub-a", "sub-b"]);
@@ -83,9 +73,7 @@ test("misc features", function(t) {
 test("handling internal commands", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    runOptions: {
-      command: "install"
-    }
+    command: "install"
   });
   // "run" should be dropped if there is no item defined in "scripts",
   // assuming it as internal commands
