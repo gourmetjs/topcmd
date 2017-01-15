@@ -42,7 +42,7 @@ test("custom command targets", function(t) {
   var topcmd = createTopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "custom",
-    filter: [
+    targetFilter: [
       "sub-a",
       "sub-z"
     ]

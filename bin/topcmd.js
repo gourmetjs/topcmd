@@ -18,13 +18,13 @@ var createTopCommander = require("..");
       "Usage: topcmd [options] <command> [targets...]",
       "",
       "Options:",
-      "  --version   print the version number",
-      "  -h, --help  print this help message",
-      "  --series    runs the command at targets in series (default)",
-      "  --parallel  runs the NPM command at targets in parallel",
-      "              * --parallel=10 limits maximum concurrency to 10",
-      "  --self      runs the NPM command at self directory",
-      "  --ignore    ignores error"
+      "  --version       print the version number",
+      "  -h, --help      print this help message",
+      "  --series        runs the command at targets in series (default)",
+      "  -p, --parallel  runs the NPM command at targets in parallel",
+      "                  * --parallel=10 limits maximum concurrency to 10",
+      "  -s, --self      runs the NPM command at self directory",
+      "  -i, --ignore    ignores error"
     ].join("\n"));
     return;
   }
