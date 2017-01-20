@@ -64,7 +64,11 @@ test("misc features", function(t) {
 
   t.deepEqual(topcmd.getShellOptions(topcmd.getTargets()[0]), {
     echoCommand: false,
-    cwd: npath.join(__dirname, "fixture/basic/sub-a")
+    cwd: npath.join(__dirname, "fixture/basic/sub-a"),
+    env: {
+      TOP: true,
+      SUB_A: "sub-a"
+    }
   });
 
   t.end();
