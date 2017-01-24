@@ -18,12 +18,16 @@ var createTopCommander = require("..");
       "Usage: topcmd [options] <command> [targets...]",
       "",
       "Options:",
-      "  --version       print the version number",
-      "  -h, --help      print this help message",
-      "  --series        runs the command at targets in series (default)",
-      "  -p, --parallel  runs the NPM command at targets in parallel",
-      "                  * --parallel=10 limits maximum concurrency to 10",
-      "  -i, --ignore    ignores error"
+      "  --version   print the version number",
+      "  -h, --help  print this help message",
+      "  --series    run the command at targets in series (default)",
+      "  --parallel  run the NPM command at targets in parallel",
+      "              * --parallel=10 limits maximum concurrency to 10",
+      "  --ignore    ignore error",
+      "  --self      run the NPM command at self directory",
+      "  --norc      ignore .topcmdrc file (default on --self)",
+      "  --env.NAME=VALUE      set an environment variable",
+      "  --shell.OPTION=VALUE  set a shell option (--shell.echoCommand)"
     ].join("\n"));
     return;
   }
