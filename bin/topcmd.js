@@ -23,6 +23,7 @@ var createTopCommander = require("..");
       "  --series    run the command at targets in series (default)",
       "  --parallel  run the NPM command at targets in parallel",
       "              * --parallel=10 limits maximum concurrency to 10",
+      "  --delay=ms  put delays between commands run by '--parallel'",
       "  --ignore    ignore error",
       "  --self      run the NPM command at self directory",
       "  --norc      ignore .topcmdrc file (default on --self)",
