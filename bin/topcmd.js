@@ -2,36 +2,33 @@
 
 "use strict";
 
-var createTopCommander = require("..");
+var program = require("commander");
+var runCommand = require("..");
 
-(function main() {
-  var topcmd = createTopCommander();
-  var argv = topcmd.argv;
+var _OPTIONS = ["series", "parallel", "self", "ignore"];
 
-  if (argv.version) {
-    console.log(require("../package.json").version);
-    return;
-  }
+program
+  .version(require("../package.json").version)
+  .usage("[options] <command> [dir...]")
+  .description("Run the yarn/npm command in local projects")
+  .option("--series", "run the command in series (default)")
+  .option("-p, --parallel", "run the command in parallel")
+  .option("-c, --concurrency <n>", "set maximum concurrency of parallel", parseInt)
+  .option("-s, --self", "run the command at self directory")
+  .option("-i, --ignore", "ignore error")
+  .parse(process.argv);
 
-  if (argv.help || !topcmd.command) {
-    console.log([
-      "Usage: topcmd [options] <command> [targets...]",
-      "",
-      "Options:",
-      "  --version       print the version number",
-      "  -h, --help      print this help message",
-      "  --series        runs the command at targets in series (default)",
-      "  -p, --parallel  runs the NPM command at targets in parallel",
-      "                  * --parallel=10 limits maximum concurrency to 10",
-      "  -s, --self      runs the NPM command at self directory",
-      "  -i, --ignore    ignores error"
-    ].join("\n"));
-    return;
-  }
+var options = {};
 
-  topcmd.run().catch(function(err) {
-    setImmediate(function() {
-      throw err;
-    });
-  });
-})();
+_OPTIONS.forEach(function(name) {
+  if (program.hasOwnProperty(name))
+    options[name] = program[name];
+});
+
+console.log(program);
+/*
+runCommand(options).catch(function(err) {
+  console.error(err);
+  process.exit(1);
+});
+*/

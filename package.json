@@ -1,19 +1,19 @@
 {
   "name": "topcmd",
-  "description": "Centrally runs NPM commands on sub-projects",
-  "version": "1.0.5",
+  "description": "Centrally runs yarn/npm commands on sub-projects",
+  "version": "2.0.0",
   "license": "MIT",
-  "repository": "https://github.com/gourmetjs/linkdeps",
+  "repository": "https://github.com/gourmetjs/topcmd",
   "bin": "bin/topcmd.js",
-  "main": "lib/createTopCommander.js",
+  "main": "lib/runCommand.js",
   "scripts": {
     "lint": "eslint bin lib test",
     "test": "tape test/test.js",
     "debug": "node --inspect --debug-brk node_modules/tape/bin/tape test/test.js"
   },
   "dependencies": {
+    "commander": "^2.9.0",
     "config-merge": "^0.1.10",
-    "minimist": "^1.2.0",
     "promise-box": "^0.1.3",
     "pshell": "^1.1.0"
   },
