@@ -1,5 +1,5 @@
 # topcmd
 
-Centrally runs NPM commands on sub-projects.
+Centrally runs yarn/npm commands in sub-project directories.
 
 # TODO

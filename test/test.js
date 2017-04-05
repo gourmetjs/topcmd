@@ -3,7 +3,7 @@
 var npath = require("path");
 var test = require("tape");
 
-var createTopCommander = require("..");
+var TopCommander = require("../lib/TopCommander");
 
 function _targets(topcmd) {
   return topcmd.getTargets().map(function(target) {
@@ -12,16 +12,16 @@ function _targets(topcmd) {
 }
 
 test("test command targets", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "test"
   });
-  t.deepEqual(_targets(topcmd), ["sub-a", "sub-b", "sub-c"]);
+  t.deepEqual(_targets(topcmd), ["sub-a", "sub-b", "sub-d", "sub-c"]);
   t.end();
 });
 
 test("build command targets", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "build"
   });
@@ -30,7 +30,7 @@ test("build command targets", function(t) {
 });
 
 test("unknown command targets", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "unknown"
   });
@@ -39,23 +39,25 @@ test("unknown command targets", function(t) {
 });
 
 test("custom command targets", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "custom",
-    targetFilter: [
-      "sub-a",
+    dirs: [
+      "sub-c",
       "sub-z"
     ]
   });
-  t.deepEqual(_targets(topcmd), ["sub-a", "sub-z"]);
+  t.deepEqual(_targets(topcmd), ["sub-d", "sub-c", "sub-z"]);
   t.end();
 });
 
 test("misc features", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "lint",
-    restArgv: "--check"
+    echo: false,
+    env: {DEBUG: "topcmd"},
+    restArgv: ["--check"]
   });
 
   t.deepEqual(_targets(topcmd), ["sub-a", "sub-b"]);
@@ -66,8 +68,7 @@ test("misc features", function(t) {
     echoCommand: false,
     cwd: npath.join(__dirname, "fixture/basic/sub-a"),
     env: {
-      TOP: true,
-      SUB_A: "sub-a"
+      DEBUG: "topcmd"
     }
   });
 
@@ -75,7 +76,7 @@ test("misc features", function(t) {
 });
 
 test("handling internal commands", function(t) {
-  var topcmd = createTopCommander({
+  var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "install"
   });

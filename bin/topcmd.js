@@ -2,40 +2,56 @@
 
 "use strict";
 
-var createTopCommander = require("..");
+var program = require("commander");
+var runCommand = require("..");
 
-(function main() {
-  var topcmd = createTopCommander();
-  var argv = topcmd.argv;
-
-  if (argv.version) {
-    console.log(require("../package.json").version);
-    return;
-  }
-
-  if (argv.help || !topcmd.command) {
-    console.log([
-      "Usage: topcmd [options] <command> [targets...]",
-      "",
-      "Options:",
-      "  --version   print the version number",
-      "  -h, --help  print this help message",
-      "  --series    run the command at targets in series (default)",
-      "  --parallel  run the NPM command at targets in parallel",
-      "              * --parallel=10 limits maximum concurrency to 10",
-      "  --delay=ms  put delays between commands run by '--parallel'",
-      "  --ignore    ignore error",
-      "  --self      run the NPM command at self directory",
-      "  --norc      ignore .topcmdrc file (default on --self)",
-      "  --env.NAME=VALUE      set an environment variable",
-      "  --shell.OPTION=VALUE  set a shell option (--shell.echoCommand)"
-    ].join("\n"));
-    return;
-  }
-
-  topcmd.run().catch(function(err) {
-    setImmediate(function() {
-      throw err;
-    });
+function _parseEnv(val) {
+  var env = {};
+  val.split(",").forEach(function(def) {
+    var items = def.split("=");
+    env[items[0]] = items[1] || "1";
   });
-})();
+  return env;
+}
+
+function _splitArgs(argv) {
+  var idx = argv.indexOf("--");
+  if (idx !== -1)
+    return [argv.slice(0, idx), argv.slice(idx + 1)];
+  else
+    return [argv, []];
+}
+
+var args = _splitArgs(process.argv);
+
+var _OPTIONS = ["series", "parallel", "concurrency", "delay", "self", "ignore", "env", "echo"];
+
+program
+  .version(require("../package.json").version)
+  .usage("[options] <command> [dir...]")
+  .description("Centrally runs yarn/npm commands in sub-project directories")
+  .option("--series", "run commands in series (default)")
+  .option("-p, --parallel", "run commands in parallel")
+  .option("-c, --concurrency <n>", "set maximum parallel concurrency", parseInt)
+  .option("-d, --delay <ms>", "set delay between parallel commands", parseInt)
+  .option("-s, --self", "run the command at self directory")
+  .option("-i, --ignore", "ignore error")
+  .option("--env <n=v>[,<n=v>...]", "set environment variables", _parseEnv)
+  .option("--echo", "echo commands")
+  .parse(args[0]);
+
+var options = {
+  command: program.args[0],
+  dirs: program.args.slice(1),
+  restArgv: args[1]
+};
+
+_OPTIONS.forEach(function(name) {
+  if (program.hasOwnProperty(name))
+    options[name] = program[name];
+});
+
+runCommand(options).catch(function(err) {
+  console.error(err);
+  process.exit(1);
+});
