@@ -14,7 +14,8 @@ function _targets(topcmd) {
 test("test command targets", function(t) {
   var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
-    command: "test"
+    command: "test",
+    recursive: true
   });
   t.deepEqual(_targets(topcmd), ["sub-a", "sub-b", "sub-d", "sub-c"]);
   t.end();
@@ -42,6 +43,8 @@ test("custom command targets", function(t) {
   var topcmd = new TopCommander({
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "custom",
+    recursive: true,
+    force: true,
     dirs: [
       "sub-c",
       "sub-z"
@@ -56,6 +59,7 @@ test("misc features", function(t) {
     rootPath: npath.join(__dirname, "fixture/basic"),
     command: "lint",
     echo: false,
+    ignore: true,
     env: {DEBUG: "topcmd"},
     restArgv: ["--check"]
   });
@@ -66,6 +70,7 @@ test("misc features", function(t) {
 
   t.deepEqual(topcmd.getShellOptions(topcmd.getTargets()[0]), {
     echoCommand: false,
+    ignoreError: true,
     cwd: npath.join(__dirname, "fixture/basic/sub-a"),
     env: {
       DEBUG: "topcmd"

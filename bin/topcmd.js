@@ -24,8 +24,6 @@ function _splitArgs(argv) {
 
 var args = _splitArgs(process.argv);
 
-var _OPTIONS = ["series", "parallel", "concurrency", "delay", "self", "ignore", "env", "echo"];
-
 program
   .version(require("../package.json").version)
   .usage("[options] <command> [dir...]")
@@ -35,7 +33,9 @@ program
   .option("-c, --concurrency <n>", "set maximum parallel concurrency", parseInt)
   .option("-d, --delay <ms>", "set delay between parallel commands", parseInt)
   .option("-s, --self", "run the command at self directory")
+  .option("-r, --recursive", "recursively scan sub-projects")
   .option("-i, --ignore", "ignore error")
+  .option("-f, --force", "do not check if the command exists in 'scripts'")
   .option("--env <n=v>[,<n=v>...]", "set environment variables", _parseEnv)
   .option("--echo", "echo commands")
   .parse(args[0]);
@@ -46,7 +46,7 @@ var options = {
   restArgv: args[1]
 };
 
-_OPTIONS.forEach(function(name) {
+["series", "parallel", "concurrency", "delay", "self", "recursive", "ignore", "force", "env", "echo"].forEach(function(name) {
   if (program.hasOwnProperty(name))
     options[name] = program[name];
 });
