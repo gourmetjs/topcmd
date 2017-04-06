@@ -5,12 +5,9 @@
 var program = require("commander");
 var runCommand = require("..");
 
-function _parseEnv(val) {
-  var env = {};
-  val.split(",").forEach(function(def) {
-    var items = def.split("=");
-    env[items[0]] = items[1] || "1";
-  });
+function _parseEnv(def, env) {
+  var items = def.split("=");
+  env[items[0]] = items[1] || "1";
   return env;
 }
 
@@ -36,7 +33,7 @@ program
   .option("-r, --recursive", "recursively scan sub-projects")
   .option("-i, --ignore", "ignore error")
   .option("-f, --force", "do not check if the command exists in 'scripts'")
-  .option("--env <n=v>[,<n=v>...]", "set environment variables", _parseEnv)
+  .option("--env <n>=[v]", "set an environment variable", _parseEnv, {})
   .option("--echo", "echo commands")
   .parse(args[0]);
 
