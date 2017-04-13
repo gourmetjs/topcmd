@@ -1,11 +1,11 @@
 {
   "name": "topcmd",
   "description": "Centrally runs yarn/npm commands in sub-project directories",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "license": "MIT",
   "repository": "https://github.com/gourmetjs/topcmd",
   "bin": "bin/topcmd.js",
-  "main": "lib/runCommand.js",
+  "main": "lib/TopCommander.js",
   "scripts": {
     "lint": "eslint bin lib test",
     "test": "tape test/test.js",

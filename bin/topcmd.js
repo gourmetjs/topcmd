@@ -3,7 +3,7 @@
 "use strict";
 
 var program = require("commander");
-var runCommand = require("..");
+var runAsMain = require("..").runAsMain;
 
 function _parseEnv(def, env) {
   var items = def.split("=");
@@ -48,7 +48,4 @@ var options = {
     options[name] = program[name];
 });
 
-runCommand(options).catch(function(err) {
-  console.error(err);
-  process.exit(1);
-});
+runAsMain(options);
