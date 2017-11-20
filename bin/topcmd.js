@@ -35,6 +35,7 @@ program
   .option("-f, --force", "do not check if the command exists in 'scripts'")
   .option("--env <n>=[v]", "set an environment variable", _parseEnv, {})
   .option("--echo", "echo commands")
+  .option("--sim", "simulate commands and exit")
   .parse(args[0]);
 
 var options = {
@@ -43,7 +44,10 @@ var options = {
   restArgv: args[1]
 };
 
-["series", "parallel", "concurrency", "delay", "self", "recursive", "ignore", "force", "env", "echo"].forEach(function(name) {
+[
+  "series", "parallel", "concurrency", "delay", "self",
+  "recursive", "ignore", "force", "env", "echo", "sim"
+].forEach(function(name) {
   if (program.hasOwnProperty(name))
     options[name] = program[name];
 });
